@@ -1,0 +1,15 @@
+---
+applications:
+  - name: springboot-postgresql
+    memory: 2G
+    instances: 1
+    buildpacks:
+      - https://github.com/cloudfoundry/java-buildpack#v4.17.1
+    stack: cflinuxfs3
+    services:
+      - eureka-ha-service
+      - postgresqlinstance
+    env:
+      JAVA_OPTS: -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+        -DAsyncLogger.RingBufferSize=117965 -Xss699K -XX:MaxMetaspaceSize=160M -XX:MetaspaceSize=128M
+      SPRING_PROFILES_ACTIVE: cloud
